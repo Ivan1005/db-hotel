@@ -8,9 +8,9 @@ FROM `ospiti`
 WHERE `date_of_birth` >= '1989/01/01';
 
 
-SELECT `name`,`lastname`
-FROM `ospiti`
-WHERE `date_of_birth` <= '2000/09/24';
+SELECT *
+FROM ospiti
+WHERE (YEAR(NOW()) - YEAR(date_of_birth)) > 20;
 
 
 SELECT `name`,`lastname`
@@ -28,7 +28,7 @@ WHERE `status` = 'accepted';
 
 SELECT *
 FROM `ospiti`
-WHERE `date_of_birth` <= '1975/12/31' 
+WHERE `date_of_birth` <= '1975/12/31'
 AND `date_of_birth` >= '1975/01/01'
 AND `document_type` = 'driver license';
 
