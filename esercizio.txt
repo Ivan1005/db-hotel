@@ -34,3 +34,57 @@ AND `document_type` = 'driver license';
 
 SELECT sum(beds)
 FROM `stanze`
+
+
+
+parte 2 
+
+SELECT COUNT(`id`) , YEAR(`date_of_birth`)
+FROM `ospiti`
+GROUP BY YEAR(`date_of_birth`);
+
+
+SELECT SUM(`price`) , (`status`)
+FROM `pagamenti`
+GROUP BY(`status`);
+
+
+
+SELECT stanze.room_number, COUNT(stanze.room_number)
+FROM `prenotazioni`
+INNER JOIN `stanze`
+ON prenotazioni.stanza_id =stanze.id
+GROUP BY stanze.room_number;
+
+
+SELECT `prenotazione_id`, ospiti.name, ospiti.lastname
+FROM `prenotazioni_has_ospiti`
+INNER JOIN `ospiti`
+ON prenotazioni_has_ospiti.ospite_id = ospiti.id;
+
+SELECT paganti.name, paganti.lastname, pagamenti.price , prenotazioni.created_at
+FROM `paganti`
+INNER JOIN `pagamenti`
+ON paganti.id = pagamenti.pagante_id
+INNER JOIN `prenotazioni`
+ON pagamenti.id = prenotazioni.id
+WHERE MONTH(prenotazioni.created_at) = 05
+AND YEAR(prenotazioni.created_at) = 2018;
+
+
+SELECT SUM(pagamenti.price)
+FROM `pagamenti`
+INNER JOIN `prenotazioni`
+ON pagamenti.prenotazione_id = prenotazioni.id
+INNER JOIN `stanze`
+ON prenotazioni.stanza_id = stanze.id
+WHERE stanze.floor = 1;
+
+
+SELECT paganti.name, paganti.lastname, pagamenti.status , pagamenti.price
+FROM `pagamenti`
+INNER JOIN `paganti`
+ON pagamenti.pagante_id = paganti.id
+INNER JOIN `prenotazioni`
+ON prenotazioni.id = pagamenti.prenotazione_id
+WHERE prenotazioni.id = 7;
