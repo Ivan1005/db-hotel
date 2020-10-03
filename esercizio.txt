@@ -88,3 +88,31 @@ ON pagamenti.pagante_id = paganti.id
 INNER JOIN `prenotazioni`
 ON prenotazioni.id = pagamenti.prenotazione_id
 WHERE prenotazioni.id = 7;
+
+
+
+parte 3 
+
+
+SELECT HOUR(created_at),  COUNT(id)
+FROM prenotazioni 
+GROUP BY HOUR(created_at) 
+ORDER BY COUNT(id) DESC
+
+
+
+SELECT stanze.id, stanze.room_number
+FROM `stanze`
+LEFT JOIN `prenotazioni`
+ON stanze.id = prenotazioni.stanza_id
+WHERE prenotazioni.id IS NULL;
+
+
+
+
+SELECT ospiti.name,ospiti.lastname, COUNT(prenotazioni_has_ospiti.ospite_id) AS number
+FROM `ospiti`
+INNER JOIN `prenotazioni_has_ospiti`
+ON ospiti.id = prenotazioni_has_ospiti.ospite_id
+GROUP BY prenotazioni_has_ospiti.ospite_id
+HAVING  number >2 ;
